@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: f1d23df8563585d4bacb1cf0bc528644
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - firePoint: {instanceID: 0}
+  - fpsCam: {instanceID: 0}
+  - bulletText: {instanceID: 0}
+  - muzzleFlash: {fileID: 7982042274622968785, guid: 319c764fed2a9bb47a103073d1ab1d22, type: 3}
+  - impactEffect_metal: {fileID: 100002, guid: 00fedc70b62a31e448e8ccc298257b56, type: 3}
+  - impactEffect_dirt: {fileID: 100002, guid: 56bfc2f4b4a0c534c8ef3d0fd1124c44, type: 3}
+  - impactEffect_wood: {fileID: 100002, guid: ac1aa04288fad804ba1cd769f4377aaf, type: 3}
+  - animator: {instanceID: 0}
+  - bullet: {fileID: 1962453281886240853, guid: cc9bc012e3df8b840920b069edfd58c6, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
