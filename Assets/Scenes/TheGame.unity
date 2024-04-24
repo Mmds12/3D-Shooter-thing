@@ -206,6 +206,54 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4999278}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &5946129
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5946130}
+  - component: {fileID: 5946131}
+  m_Layer: 0
+  m_Name: KatanaSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5946130
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5946129}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.74910456, y: -0.65416145, z: 0.035405945, w: 0.09829379}
+  m_LocalPosition: {x: -0.9760011, y: 0.028468907, z: 0.82299644}
+  m_LocalScale: {x: 0.019504607, y: 0.026725957, z: 0.026495343}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 452365104}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5946131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5946129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a48c68b168988d643aaab7843bff517e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gunHolder: {fileID: 738125493}
+  katanaPrefab1: {fileID: 1533044980556343608, guid: 2d97e24dac5ad9f4fa1648716de369ec, type: 3}
+  katanaPrefab2: {fileID: 8636450091882859052, guid: 9b178578030963b45bd753cdf81768fa, type: 3}
+  katanaSpawnPoint: {fileID: 5946129}
 --- !u!1001 &10077238
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -406,7 +454,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -139.6, y: 5.373474}
+  m_AnchoredPosition: {x: -139.6, y: 5.373535}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &26690830
@@ -4506,7 +4554,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 18, y: -10.000122}
+  m_AnchoredPosition: {x: 18, y: -10.000061}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &341891667
@@ -5734,7 +5782,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -18.867}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -21.4, y: 21.7}
+  m_AnchoredPosition: {x: -21.400024, y: 21.699951}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &556111555
@@ -6172,7 +6220,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -138.56003, y: 17.144958}
+  m_AnchoredPosition: {x: -138.56003, y: 17.14502}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &618029160
@@ -6736,7 +6784,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -11.799988, y: 95.3}
+  m_AnchoredPosition: {x: -11.799927, y: 95.29999}
   m_SizeDelta: {x: 50, y: 40}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &713318860
@@ -6874,6 +6922,7 @@ GameObject:
   - component: {fileID: 738125490}
   - component: {fileID: 738125491}
   - component: {fileID: 738125492}
+  - component: {fileID: 738125493}
   m_Layer: 0
   m_Name: GunHolder
   m_TagString: Untagged
@@ -6934,6 +6983,27 @@ MonoBehaviour:
   Recoil: {fileID: 415178246}
   selectedSlot: 2
   hasWeapon: 0
+--- !u!95 &738125493
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 738125489}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8c44c63ff4b9bc545a0e938e2550e6a0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &739266612 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1102467111119534, guid: 5f901b0d19bfa4e49a80be0cfb36ff22, type: 3}
@@ -7545,7 +7615,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -11.79999, y: 60}
+  m_AnchoredPosition: {x: -11.800049, y: 60}
   m_SizeDelta: {x: 50, y: 40}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &868573585
@@ -8499,7 +8569,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -138.56003, y: 25.757004}
+  m_AnchoredPosition: {x: -138.56003, y: 25.756958}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1006764050
@@ -11607,7 +11677,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -138.56003, y: 21.450989}
+  m_AnchoredPosition: {x: -138.56003, y: 21.450928}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1303621779
@@ -20332,6 +20402,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2547270421713855024, guid: 81767e74e3829394da613f8d9f167ff7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1154995687}
+    - targetCorrespondingSourceObject: {fileID: 3565269875293572952, guid: 81767e74e3829394da613f8d9f167ff7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5946130}
     - targetCorrespondingSourceObject: {fileID: 3565269875293572952, guid: 81767e74e3829394da613f8d9f167ff7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 738125490}
