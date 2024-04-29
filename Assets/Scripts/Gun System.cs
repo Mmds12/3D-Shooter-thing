@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem.Controls;
@@ -62,6 +63,14 @@ public class GunSystem : MonoBehaviour
     private Chest chest1;
     private Chest chest2;
 
+    // Sound Effect
+    public AudioSource Sound_Fire;
+    public AudioSource Sound_Shell;
+    public AudioSource Sound_Reload;
+
+    // Others
+    private playerManager playerManager;
+    public float weaponUpgrade = 0f;
 
     private void Start()
     {
@@ -82,11 +91,16 @@ public class GunSystem : MonoBehaviour
 
         chest1 = GameObject.Find("Chest1").GetComponent<Chest>();
         chest2 = GameObject.Find("Chest2").GetComponent<Chest>();
+
+        playerManager = GameObject.Find("Player").GetComponent<playerManager>();
     }
 
     private void Update()
     {
         myInput();
+
+        if(playerManager != null)
+            playerManager.weaponReloading = Reloading;
     }
 
     void myInput()
@@ -121,6 +135,8 @@ public class GunSystem : MonoBehaviour
         recoil_script.RecoilStart();
         // Muzzle Flash
         muzzleFlash.Play();
+        // Sound Effect
+        StartCoroutine(soundEffect());
 
         // Spawn Bullet
         if(!isaAiming)
@@ -152,7 +168,7 @@ public class GunSystem : MonoBehaviour
                 if(!rayHit.transform.CompareTag("Player") && whatIsEnemy == (whatIsEnemy | (1 << rayHit.transform.gameObject.layer)))
                 {
                     Enemy_script = rayHit.transform.GetComponent<EnemyAI>();
-                    Enemy_script.Damage(damage);
+                    Enemy_script.Damage(damage, 14f);
                 }
 
                 // Impact Effect
@@ -173,11 +189,12 @@ public class GunSystem : MonoBehaviour
 
     }
 
-    void Reload()
+    public void Reload()
     {
         Reloading = true;
         chest1.reloading = true;
         chest2.reloading = true;
+        Sound_Reload.Play();
 
         animator.SetTrigger("ReloadStart");
         animator.SetTrigger("ReloadEnd");
@@ -225,4 +242,11 @@ public class GunSystem : MonoBehaviour
         readyToShoot = true;
     }
 
+    IEnumerator soundEffect()
+    {
+        Sound_Fire.Play();
+        yield return new WaitForSeconds(.2f);
+        if (Sound_Shell != null)
+            Sound_Shell.Play();
+    }
 }

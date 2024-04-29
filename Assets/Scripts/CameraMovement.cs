@@ -36,4 +36,9 @@ public class PlayerLook : MonoBehaviour
 
     }
 
+    public void lookSpeed(float s)
+    {
+        sensX = s;
+        sensY = s;
+    }
 }

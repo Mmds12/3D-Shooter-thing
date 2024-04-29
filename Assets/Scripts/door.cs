@@ -32,6 +32,8 @@ public class door : MonoBehaviour
             anim2.Play();
             opened = true;
             EnemySpawn.gateOpened = true;
+
+            moneyManager.extractMoney(cost);
         }
     }
 

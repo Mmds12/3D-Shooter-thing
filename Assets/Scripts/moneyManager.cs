@@ -4,9 +4,11 @@ using UnityEngine;
 public class moneyManager : MonoBehaviour
 {
     public TextMeshProUGUI moneyText;
-    public GameObject moneyAdded;
     public TextMeshProUGUI moneyAddedSpawn;
     public float money = 0f;
+
+    public GameObject moneyAdded;
+    public GameObject moneyExtraxted;
 
     void Update()
     {
@@ -21,6 +23,15 @@ public class moneyManager : MonoBehaviour
         money += (int)amount;
 
         var t = Instantiate(moneyAdded, moneyAddedSpawn.rectTransform);
+        Destroy(t, 3f);
+    }
+
+    public void extractMoney(float amount)
+    {
+        moneyExtraxted.GetComponent<TextMeshProUGUI>().text = "-" + ((int)amount).ToString();
+        money -= amount;
+
+        var t = Instantiate(moneyExtraxted, moneyAddedSpawn.rectTransform);
         Destroy(t, 3f);
     }
 }

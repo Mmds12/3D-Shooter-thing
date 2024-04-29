@@ -76,6 +76,8 @@ public class Chest : MonoBehaviour
             isOpen = true;
             Animation.Play("ChestAnim");
             StartCoroutine(spawnWeapon());
+
+            moneyManager.extractMoney(chestCost);
         }
 
         // Take the weapon

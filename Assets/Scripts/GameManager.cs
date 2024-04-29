@@ -1,51 +1,97 @@
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using Unity.VisualScripting;
+using UnityEngine.Audio;
 
 public class GameManager : MonoBehaviour
 {
     public PlayerLook PlayerLook;
+    private playerManager playerManager;
 
     public GameObject exitButton;
     public GameObject restartButton;
+    public GameObject katanaTutorialText;
+    public GameObject sensitivity;
+    public GameObject music;
+    public AudioMixer audioMixer;
 
     private bool gameStop = false;
+    private bool playerDead = false;
+
+
+    private float timeToKatanaTutorialText = 25f;
+    private bool played = false;
+
+    private void Start()
+    {
+        if(GameObject.Find("Player") != null)
+        {
+            playerManager = GameObject.Find("Player").GetComponent<playerManager>();
+        }
+    }
 
     private void Update()
     {
+        if (playerManager != null)
+        {
+            playerDead = playerManager.isDead;
+            timeToKatanaTutorialText -= Time.deltaTime;
+        }
+        else
+            playerDead = false;
+
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             gameStop = !gameStop;
 
             if (gameStop)
-            {
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
-
-                PlayerLook.enabled = false;
-                Time.timeScale = 0f;
-
-                exitButton.SetActive(true);
-                restartButton.SetActive(true);
-            }
+                GameStop();
 
             else if (!gameStop)
-            {
-                Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Locked;
-
-                PlayerLook.enabled = true;
-                Time.timeScale = 1f;
-
-                exitButton.SetActive(false);
-                restartButton.SetActive(false);
-            }
+                GameContinue();
         }
+
+        if( timeToKatanaTutorialText <= 0 && !played)
+        {
+            played = true;
+
+            katanaTutorialText.GetComponent<Animator>().SetTrigger("Start");
+            katanaTutorialText.GetComponent<Animator>().SetTrigger("End");
+        }
+    }
+
+    public void GameStop()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
+        exitButton.SetActive(true);
+        restartButton.SetActive(true);
+        sensitivity.SetActive(true);
+        music.SetActive(true);
+
+        PlayerLook.enabled = false;
+        Time.timeScale = 0f;
+    }
+
+    void GameContinue()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
+        exitButton.SetActive(false);
+        restartButton.SetActive(false);
+        sensitivity.SetActive(false);
+        music.SetActive(false);
+
+        PlayerLook.enabled = true;
+        Time.timeScale = 1f;
     }
 
     public void startGame()
     {
-        Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.Locked;
+        Time.timeScale = 1f;
 
         SceneManager.LoadScene("TheGame");
     }
@@ -62,4 +108,8 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
+    public void musicChanger(float volume)
+    {
+        audioMixer.SetFloat("volume", volume);
+    }
 }

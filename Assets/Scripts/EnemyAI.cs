@@ -75,11 +75,11 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    public void Damage(int d)
+    public void Damage(int d, float money)
     {
         health -= d;
 
-        moneyManager.addMoney(10f);
+        moneyManager.addMoney(money);
 
         if (health <= 0 && !isDead)
         {

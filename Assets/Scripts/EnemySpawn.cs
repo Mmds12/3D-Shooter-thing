@@ -16,9 +16,13 @@ public class EnemySpawn : MonoBehaviour
     public float spawnTime = 8f;
     private float counter = 0f;
 
-    private float moveTime = 2f;
+    private float moveTime = 1.4f;
     private float counter2 = -5f;
     private bool move = false;
+
+    private float spawnTimeHarderCounter = 0f;
+    private float spawnTimeHarderLimit = 80f;
+    private float spawnTimeOverRounds = 0.5f;
 
     void Start()
     {
@@ -67,6 +71,18 @@ public class EnemySpawn : MonoBehaviour
                 counter2 = 0f;
                 isRunning = true;
             }
+        }
+
+        spawnTimeHarderCounter += Time.deltaTime;
+
+        // Harder the game over time
+        if (spawnTimeHarderCounter >= spawnTimeHarderLimit && spawnTime > 0.7f)
+        {
+            spawnTime -= spawnTimeOverRounds;
+            spawnTimeOverRounds++;
+            spawnTimeHarderLimit += 5f;
+            spawnTimeHarderCounter = 0f;
+            spawnTimeOverRounds -= .3f;
         }
     }
 }
