@@ -11,6 +11,7 @@ public class EnemyAI : MonoBehaviour
     private EnemySpawn EnemySpawn;
     private playerManager playerManager;
     private moneyManager moneyManager;
+    private Rounds Rounds;
 
     private bool isAttacking = false;
     private bool attacked = false;
@@ -31,6 +32,8 @@ public class EnemyAI : MonoBehaviour
         player = GameObject.Find("Player");
         playerManager = player.GetComponent<playerManager>();
         moneyManager = GameObject.Find("MoneyManager").GetComponent<moneyManager>();
+
+        Rounds = GameObject.Find("Rounds").GetComponent<Rounds>();
     }
 
     private void Update()
@@ -84,6 +87,7 @@ public class EnemyAI : MonoBehaviour
         if (health <= 0 && !isDead)
         {
             // Enemy Death
+            Rounds.enemyDead++;
             isDead = true;
             gameObject.GetComponent<NavMeshAgent>().SetDestination(gameObject.transform.position);
             gameObject.GetComponent<CapsuleCollider>().enabled = false;

@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public GameObject restartButton;
     public GameObject katanaTutorialText;
     public GameObject sensitivity;
+    public GameObject sensitivitySlider;
     public GameObject music;
     public AudioMixer audioMixer;
 
@@ -68,6 +69,7 @@ public class GameManager : MonoBehaviour
         exitButton.SetActive(true);
         restartButton.SetActive(true);
         sensitivity.SetActive(true);
+        sensitivitySlider.SetActive(true);
         music.SetActive(true);
 
         PlayerLook.enabled = false;
@@ -82,18 +84,23 @@ public class GameManager : MonoBehaviour
         exitButton.SetActive(false);
         restartButton.SetActive(false);
         sensitivity.SetActive(false);
+        sensitivitySlider.SetActive(false);
         music.SetActive(false);
 
         PlayerLook.enabled = true;
         Time.timeScale = 1f;
     }
 
-    public void startGame()
+    public void RestartGame(int s)
     {
         Cursor.lockState = CursorLockMode.Locked;
         Time.timeScale = 1f;
 
-        SceneManager.LoadScene("TheGame");
+        if(s == 1)
+            SceneManager.LoadScene("TheGame");
+
+        if (s == 2)
+            SceneManager.LoadScene("TheGame2");
     }
 
     public void mainMenu()

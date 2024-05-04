@@ -10,12 +10,12 @@ public class playerManager : MonoBehaviour
     public GameObject gun;
     public GameObject camera_;
 
-    public float health = 100;
+    public float health = 100f;
     public float healLimit = 100f;
-    public float heal = 5;
-    public float healCouldown = 8f;
+    public float heal = 5f;
+    public float healCouldown = 6f;
 
-    private float healCounter = 0f;
+    private float healCounter = 6f;
 
     public bool isDead = false;
     private bool healing = false;
@@ -70,8 +70,11 @@ public class playerManager : MonoBehaviour
 
         // ****** Overlay Management ******
 
-        if (health < healLimit && health >= 80f && !isOverlay1)
+        if (health < healLimit - 20f && health >= 80f && !isOverlay1)
+        {
             overlay11 = Instantiate(overlay1, overlaySpawn.transform);
+            isOverlay1 = true;
+        }
 
         if (health < 70f && health >= 50f && !isOverlay2)
         {
@@ -79,7 +82,7 @@ public class playerManager : MonoBehaviour
             isOverlay2 = true;
         }
 
-        if (health < 35 && health >= 0f && !isOverlay3)
+        if (health < 40f && health >= 0f && !isOverlay3)
         {
             overlay33 = Instantiate(overlay3, overlaySpawn.transform);
             isOverlay3 = true;
@@ -105,26 +108,29 @@ public class playerManager : MonoBehaviour
     {
         healing = true;
 
-        if (health + heal >= healLimit)
+        if (health + heal >= healLimit - 9f)
         {
             health = healLimit;
 
             isOverlay1 = false;
-            overlay11.gameObject.GetComponent<Animator>().SetTrigger("End");
+            if(overlay11 != null)
+                overlay11.gameObject.GetComponent<Animator>().SetTrigger("End");
         }
 
         else
             health += heal;
 
-        if(health >= 35f)
+        if(health >= 45f)
         {
-            overlay22.gameObject.GetComponent<Animator>().SetTrigger("End");
+            if(overlay22 != null)
+                overlay22.gameObject.GetComponent<Animator>().SetTrigger("End");
             isOverlay2 = false;
         }
 
-        if (health >= 60f)
+        if (health >= 50f)
         {
-            overlay33.gameObject.GetComponent<Animator>().SetTrigger("End");
+            if(overlay33 != null)
+                overlay33.gameObject.GetComponent<Animator>().SetTrigger("End");
             isOverlay3 = false;
         }
 

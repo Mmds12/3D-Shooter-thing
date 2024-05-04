@@ -17,13 +17,10 @@ public class Chest : MonoBehaviour
     public GameObject image1;
     public GameObject image2;
     public GameObject pistolImage;
-    private GameObject t1;
-    private GameObject t2;
     private moneyManager moneyManager;
 
     private GameObject chestGun;
-    public GameObject gun1;
-    public GameObject gun2;
+    public GameObject pistol;
 
     public string weaponName;
     public float chestCost = 950f;
@@ -37,21 +34,18 @@ public class Chest : MonoBehaviour
     private bool isOpen = false;
     private bool opening = false;
     private bool isThereWeapon = false;
-    private bool firstWeapon = true;
 
     public bool reloading = false;
-
-    // Weapons Name
-    string UMP = "UMP-45(Clone)";
-    string AK = "Ak-47 (1)(Clone)";
-    string M4A1 = "M4A1 Sopmod(Clone)";
-    string Shotgun_M401 = "Shotgun M401(Clone)";
 
     private void Start()
     {
         journeyLength = Vector3.Distance(spawnPoint.position, endPoint.position);
 
         moneyManager = GameObject.Find("MoneyManager").GetComponent<moneyManager>();
+
+        weaponManager.gun2 = pistol;
+
+        weaponManager.firstWeapon = true;
     }
 
     private void Update()
@@ -81,7 +75,7 @@ public class Chest : MonoBehaviour
         }
 
         // Take the weapon
-        if(Input.GetKeyDown(KeyCode.E) && inRange && isThereWeapon && !reloading)
+        if(Input.GetKeyDown(KeyCode.E) && inRange && isThereWeapon && !reloading && isOpen)
         {
             takeWeapon();
             opening = false;
@@ -105,94 +99,77 @@ public class Chest : MonoBehaviour
     {
         Animation.Play("ChestAnimClose");
 
-        if(firstWeapon)
+        if (weaponManager.firstWeapon)
         {
             weaponManager.switchSlots(1);
             weaponManager.hasWeapon = true;
-            firstWeapon = false;
+            weaponManager.firstWeapon = false;
         }
         else
         {
 
-            if (weaponManager.selectedSlot == 1)
-                Destroy(gun1);
+            if (weaponManager.selectedSlot == 1 && weaponManager.gun1 != null)
+                Destroy(weaponManager.gun1);
 
-            else if (weaponManager.selectedSlot == 2)
-                Destroy(gun2);
+            else if (weaponManager.selectedSlot == 2 && weaponManager.gun2 != null)
+                Destroy(weaponManager.gun2);
 
         }
 
         int s = weaponManager.selectedSlot;
 
-        if (s == 1 && t1 != null)
-            Destroy(t1);
-        else if (s == 2 && t2 != null)
-            Destroy(t2);
+        if (s == 1 && weaponManager.t1 != null)
+            Destroy(weaponManager.t1);
+        else if (s == 2 && weaponManager.t2 != null)
+            Destroy(weaponManager.t2);
 
         if (s == 2 && pistolImage != null)
             Destroy(pistolImage);
 
-        if (chestGun.transform.name == UMP)
-        {
-            if(s == 1)
-            {
-                gun1 = Instantiate(weaponManager.guns[0], weaponManager.weaponSlot1.transform);
-                t1 = Instantiate(gunIcons[3], image1.transform);
-            }
-            if (s == 2)
-            {
-                gun2 = Instantiate(weaponManager.guns[0], weaponManager.weaponSlot2.transform);
-                t2 = Instantiate(gunIcons[3], image2.transform);
-            }
-        }
+        string GunName = chestGun.transform.name;
 
-        else if (chestGun.transform.name == AK)
+        switch (GunName)
         {
-            if (s == 1)
-            {
-                gun1 = Instantiate(weaponManager.guns[1], weaponManager.weaponSlot1.transform);
-                t1 = Instantiate(gunIcons[0], image1.transform);
-            }
-            if (s == 2)
-            {
-                gun2 = Instantiate(weaponManager.guns[1], weaponManager.weaponSlot2.transform);
-                t2 = Instantiate(gunIcons[0], image2.transform);
-            }
+            case "UMP-45(Clone)":
+                InstantiateWeapon(weaponManager.guns[0], gunIcons[3], s);
+                break;
+            case "Ak-47 (1)(Clone)":
+                InstantiateWeapon(weaponManager.guns[1], gunIcons[0], s);
+                break;
+            case "M4A1 Sopmod(Clone)":
+                InstantiateWeapon(weaponManager.guns[2], gunIcons[1], s);
+                break;
+            case "Shotgun M401(Clone)":
+                InstantiateWeapon(weaponManager.guns[3], gunIcons[2], s);
+                break;
+            default:
+                Debug.LogWarning("Unknown chest gun name: " + GunName);
+                break;
         }
-
-        else if (chestGun.transform.name == M4A1)
-        {
-            if (s == 1)
-            {
-                gun1 = Instantiate(weaponManager.guns[2], weaponManager.weaponSlot1.transform);
-                t1 = Instantiate(gunIcons[1], image1.transform);
-            }
-            if (s == 2)
-            {
-                gun2 = Instantiate(weaponManager.guns[2], weaponManager.weaponSlot2.transform);
-                t2 = Instantiate(gunIcons[1], image2.transform);
-            }
-        }
-
-        else if (chestGun.transform.name == Shotgun_M401)
-        {
-            if (s == 1)
-            {
-                gun1 = Instantiate(weaponManager.guns[3], weaponManager.weaponSlot1.transform);
-                t1 = Instantiate(gunIcons[2], image1.transform);
-            }
-            if (s == 2)
-            {
-                gun2 = Instantiate(weaponManager.guns[3], weaponManager.weaponSlot2.transform);
-                t2 = Instantiate(gunIcons[2], image2.transform);
-            }
-        }
+        
 
         isThereWeapon = false;
         isOpen = false;
         isGun = false;
+
         Destroy(chestGun);
     }
+
+
+    void InstantiateWeapon(GameObject weaponPrefab, GameObject iconPrefab, int slot)
+    {
+        if (slot == 1)
+        {
+            weaponManager.gun1 = Instantiate(weaponPrefab, weaponManager.weaponSlot1.transform);
+            weaponManager.t1 = Instantiate(iconPrefab, image1.transform);
+        }
+        else if (slot == 2)
+        {
+            weaponManager.gun2 = Instantiate(weaponPrefab, weaponManager.weaponSlot2.transform);
+            weaponManager.t2 = Instantiate(iconPrefab, image2.transform);
+        }
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {

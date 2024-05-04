@@ -13,6 +13,13 @@ public class WeaponManager : MonoBehaviour
     
     public bool hasWeapon = false;
 
+    // Weapons 
+    public bool firstWeapon;
+
+    public GameObject gun1;
+    public GameObject gun2;
+    public GameObject t1;
+    public GameObject t2;
 
     private void Update()
     {

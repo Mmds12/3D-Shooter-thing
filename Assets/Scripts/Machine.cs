@@ -34,6 +34,8 @@ public class Machine : MonoBehaviour
         {
             theText.GetComponent<TextMeshProUGUI>().text = "   Press E to Buy\nWeapon Upgrade  \n   $" + cost.ToString();
         }
+
+        gunSystem = GameObject.Find("Pistol").GetComponent<GunSystem>();
     }
 
     void Update()
@@ -72,6 +74,12 @@ public class Machine : MonoBehaviour
         {
             isPlayer = true;
 
+            if((machine == 1 || machine == 2) && theText != null)
+            {
+                theText.SetActive(true);
+                return;
+            }
+
             if (theText != null && gunSystem.weaponUpgrade < 3)
                 theText.SetActive(true);
         }
@@ -94,7 +102,7 @@ public class Machine : MonoBehaviour
         moneyManager.extractMoney(cost);
 
         GameObject.Find("Player").GetComponent<playerManager>().healLimit += 20f;
-        GameObject.Find("Player").GetComponent<playerManager>().healCouldown = 5f;
+        GameObject.Find("Player").GetComponent<playerManager>().healCouldown = 3f;
         GameObject.Find("Player").GetComponent<playerManager>().heal = 8f;
     }
     void movementSpeed()
